@@ -2,8 +2,6 @@
 
 A modern web application that uses AI to analyze voice recordings and detect accents with high accuracy.
 
-![Accent Detector Demo](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Accent+Detector+Demo)
-
 ## ✨ Features
 
 - 🎙️ **Real-time Voice Recording** - Record directly in the browser
