@@ -2,7 +2,6 @@
 
 A modern web application that uses AI to analyze voice recordings and detect accents with high accuracy.
 
-![Accent Detector Demo](https://via.placeholder.com/800x400/1a1a1a/ffffff-time Voice Recording** - Record directly in the browser
 - 🤖 **AI-Powered Analysis** - Uses OpenAI Whisper + Google Gemini
 - 🌍 **Global Accent Detection** - Identifies accents from around the world
 - 👤 **User Authentication** - Secure login/signup with Supabase
