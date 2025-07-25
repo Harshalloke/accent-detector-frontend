@@ -36,7 +36,7 @@ A modern web application that uses AI to analyze voice recordings and detect acc
 
 ## 🚀 Live Demo
 
-**🌐 [Try the Live App](https://your-app-name.vercel.app)**
+**🌐 [Try the Live App](https://accent-detector-frontend.vercel.app/)**
 
 **🎤 [Whisper Service](https://your-username-whisper-accent-detector.hf.space)**
 
