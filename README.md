@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎤 AI-Powered Accent Detector
 
-## Getting Started
+A modern web application that uses AI to analyze voice recordings and detect accents with high accuracy.
 
-First, run the development server:
+![Accent Detector Demo](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Accent+Detector+Demo)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🎙️ **Real-time Voice Recording** - Record directly in the browser
+- 🤖 **AI-Powered Analysis** - Uses OpenAI Whisper + Google Gemini
+- 🌍 **Global Accent Detection** - Identifies accents from around the world
+- 👤 **User Authentication** - Secure login/signup with Supabase
+- 📊 **Detection History** - View and manage past detections
+- 🎨 **Modern Dark UI** - Responsive design with glassmorphism effects
+- ⚡ **Real-time Results** - Get instant accent analysis
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Frontend
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Modern UI components
+- **Framer Motion** - Smooth animations
 
-## Learn More
+### Backend & Services
+- **Supabase** - Authentication & PostgreSQL database
+- **Google Gemini** - AI accent analysis
+- **Whisper (Gradio)** - Speech-to-text transcription
+- **Hugging Face Spaces** - Free ML model hosting
 
-To learn more about Next.js, take a look at the following resources:
+### Deployment
+- **Vercel** - Frontend hosting
+- **Hugging Face Spaces** - Whisper service hosting
+- **Supabase Cloud** - Database & auth hosting
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Live Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**🌐 [Try the Live App](https://your-app-name.vercel.app)**
 
-## Deploy on Vercel
+**🎤 [Whisper Service](https://your-username-whisper-accent-detector.hf.space)**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📦 Installation & Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Supabase account
+- Google AI Studio account
+- Hugging Face account
+
+### 1. Clone the Repository

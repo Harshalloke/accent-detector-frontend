@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { analyzeAccent } from '@/lib/gemini'
-import { createClient } from '@/lib/supabase/server'
 
-const WHISPER_SERVICE_URL = process.env.WHISPER_SERVICE_URL || 'http://localhost:8000'
+const WHISPER_SERVICE_URL = process.env.WHISPER_SERVICE_URL
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,61 +12,45 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No audio file provided' }, { status: 400 })
     }
 
-    // Prepare form data for Whisper service
-    const whisperFormData = new FormData()
-    whisperFormData.append('file', audioFile)
-
-    // Send to local Whisper service
-    console.log('Sending audio to Whisper service...')
-    const whisperResponse = await fetch(`${WHISPER_SERVICE_URL}/transcribe`, {
+    // Create FormData for Gradio (simpler approach)
+    const gradioFormData = new FormData()
+    gradioFormData.append('data', JSON.stringify([audioFile]))
+    
+    // Call Gradio API
+    const transcriptionResponse = await fetch(`${WHISPER_SERVICE_URL}/api/predict`, {
       method: 'POST',
-      body: whisperFormData,
+      body: gradioFormData  // Send as FormData instead of JSON
     })
 
-    if (!whisperResponse.ok) {
-      const errorText = await whisperResponse.text()
-      console.error('Whisper service error:', errorText)
-      throw new Error(`Transcription failed: ${whisperResponse.status}`)
+    if (!transcriptionResponse.ok) {
+      throw new Error(`Transcription service failed: ${transcriptionResponse.status}`)
     }
 
-    const whisperResult = await whisperResponse.json()
-    const transcript = whisperResult.text
-
-    if (!transcript || transcript.trim().length === 0) {
-      return NextResponse.json({ error: 'No speech detected in audio' }, { status: 400 })
-    }
-
-    console.log('Transcription successful:', transcript)
-
-    // Analyze accent with Gemini
-    const accentResult = await analyzeAccent(transcript)
-
-    // Save to database if user is authenticated
-    const supabase = createClient()
-    const { data: { session } } = await supabase.auth.getSession()
+    const transcriptionResult = await transcriptionResponse.json()
     
-    if (session?.user) {
-      await supabase
-        .from('detections')
-        .insert({
-          user_id: session.user.id,
-          transcription: transcript,
-          accent: accentResult.accent,
-          confidence: accentResult.confidence,
-          reasoning: accentResult.reasoning,
-        })
+    // Parse the response from Gradio
+    const whisperData = transcriptionResult.data[0]
+    
+    if (whisperData.error) {
+      throw new Error(whisperData.error)
     }
+
+    // Analyze accent using Gemini
+    const accentResult = await analyzeAccent(whisperData.text)
 
     return NextResponse.json({
       ...accentResult,
-      transcription: transcript,
+      transcription: whisperData.text,
+      confidence: whisperData.confidence || 1.0,
+      source: 'gradio_whisper'
     })
 
   } catch (error) {
     console.error('Accent detection error:', error)
     return NextResponse.json(
-      { error: 'Failed to process audio' },
+      { error: 'Failed to detect accent' },
       { status: 500 }
     )
   }
 }
+
